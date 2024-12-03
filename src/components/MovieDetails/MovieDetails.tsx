@@ -8,11 +8,11 @@ import MovieDetailImage from "./MovieDetailImage";
 import MovieDetailInfo from "./MovieDetailInfo";
 
 const MovieDetails: React.FC = () => {
-  // Get imdbID for fetching the details
+  // Get imdbID for fetching the movie details
   const { imdbID } = useParams<{ imdbID: string }>();
 
   const dispatch = useDispatch<AppDispatch>();
-  const movieDetail = useSelector(
+  const selectedMovieDetail = useSelector(
     (state: RootState) => state.movies.selectedMovie
   );
 
@@ -24,20 +24,20 @@ const MovieDetails: React.FC = () => {
 
   return (
     <div>
-      {movieDetail ? (
+      {selectedMovieDetail ? (
         <div className="movie-detail-container">
-          <MovieDetailHeader title={movieDetail.Title} />
+          <MovieDetailHeader title={selectedMovieDetail.Title} />
           <div className="movie-detail">
             <MovieDetailImage
-              title={movieDetail.Title}
-              imgUrl={movieDetail.Poster}
+              title={selectedMovieDetail.Title}
+              imgUrl={selectedMovieDetail.Poster}
             />
             <MovieDetailInfo
-              director={movieDetail.Director}
-              genre={movieDetail.Genre}
-              actors={movieDetail.Actors}
-              imdbRating={movieDetail.imdbRating}
-              plot={movieDetail.Plot}
+              director={selectedMovieDetail.Director}
+              genre={selectedMovieDetail.Genre}
+              actors={selectedMovieDetail.Actors}
+              imdbRating={selectedMovieDetail.imdbRating}
+              plot={selectedMovieDetail.Plot}
             />
           </div>
         </div>
