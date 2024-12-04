@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BASE_URL } from "../constants/constant";
-import { MoviesState, requestParamsInterface } from "../interfaces/interfaces";
+import { MoviesState, RequestParamsInterface } from "../interfaces/interfaces";
 
 const initialState: MoviesState = {
   movies: [],
@@ -12,7 +12,7 @@ const initialState: MoviesState = {
 // Create Redux async thunk actions to http requests
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
-  async (requestParams: requestParamsInterface) => {
+  async (requestParams: RequestParamsInterface) => {
     let generatedUrl = `${BASE_URL}?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${requestParams.nameQuery}`;
     if (requestParams.nameQuery && requestParams.releaseDateQuery) {
       generatedUrl = `${generatedUrl}&y=${requestParams.releaseDateQuery}`;

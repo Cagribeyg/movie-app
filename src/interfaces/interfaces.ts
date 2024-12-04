@@ -1,4 +1,4 @@
-export interface requestParamsInterface {
+export interface RequestParamsInterface {
   releaseDateQuery?: number | null;
   nameQuery: string;
 }

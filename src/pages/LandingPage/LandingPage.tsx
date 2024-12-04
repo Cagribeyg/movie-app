@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
 import { fetchMovies } from "../../slice/movieSlice";
 import { useLocation } from "react-router-dom";
-import { requestParamsInterface } from "../../interfaces/interfaces";
+import { RequestParamsInterface } from "../../interfaces/interfaces";
 import dayjs from "dayjs";
 
 const LandingPage: React.FC = () => {
@@ -30,7 +30,7 @@ const LandingPage: React.FC = () => {
   }, [state]);
 
   useEffect(() => {
-    var requestParams!: requestParamsInterface;
+    var requestParams!: RequestParamsInterface;
     // Request for if only name typed
     if (!searchReleaseDate) {
       if (searchName.length >= 3) {
