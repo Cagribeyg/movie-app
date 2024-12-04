@@ -6,6 +6,7 @@ import { AppDispatch, RootState } from "../../store/store";
 import MovieDetailHeader from "./MovieDetailHeader";
 import MovieDetailImage from "./MovieDetailImage";
 import MovieDetailInfo from "./MovieDetailInfo";
+import { CircularProgress } from "@mui/material";
 
 const MovieDetails: React.FC = () => {
   // Get imdbID for fetching the movie details
@@ -42,7 +43,9 @@ const MovieDetails: React.FC = () => {
           </div>
         </div>
       ) : (
-        <div>Movie details is loading.</div>
+        <div className="loading-container">
+          <CircularProgress style={{ position: "absolute" }} color="success" />
+        </div>
       )}
     </div>
   );
