@@ -1,6 +1,9 @@
 import React from "react";
 import "./MovieFilter.scss";
 import { TextField } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const MovieFilter = ({
   searchName,
@@ -10,9 +13,10 @@ const MovieFilter = ({
 }: {
   searchName: string;
   setSearchName: Function;
-  searchReleaseDate: string;
+  searchReleaseDate: any;
   setReleaseDate: Function;
 }) => {
+  const movieNameValidation = !!searchName.length;
   return (
     <div className="movie-filter-container">
       <div className="name-filter-container">
@@ -23,16 +27,27 @@ const MovieFilter = ({
           style={{ marginLeft: "20px" }}
           value={searchName}
           onChange={(e) => setSearchName(e.target.value)}
+          error={!movieNameValidation}
+          helperText={!movieNameValidation ? "Movie name must be entered" : ""}
         />
       </div>
       <div className="release-date-filter-container">
-        <TextField
-          id="outlined-helperText"
-          label="Search By Release Date"
-          defaultValue="2010"
-          value={searchReleaseDate}
-          onChange={(e) => setReleaseDate(e.target.value)}
-        />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            views={["year"]}
+            label="Year only"
+            value={searchReleaseDate}
+            onChange={(newValue) => {
+              setReleaseDate(newValue);
+            }}
+            slotProps={{
+              textField: {
+                fullWidth: true,
+                margin: "normal",
+              },
+            }}
+          />
+        </LocalizationProvider>
       </div>
     </div>
   );

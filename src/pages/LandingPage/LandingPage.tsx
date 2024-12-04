@@ -4,19 +4,48 @@ import "../page.scss";
 import MovieFilter from "../../components/MovieFilter/MovieFilter";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
-import { fetchMovies } from "../../features/movieSlice";
+import { fetchMovies } from "../../slice/movieSlice";
+import { useLocation } from "react-router-dom";
+import { requestParamsInterface } from "../../interfaces/interfaces";
 
 const LandingPage: React.FC = () => {
   const [searchName, setSearchName] = useState<string>("Pokemon");
-  const [searchReleaseDate, setReleaseDate] = useState<string>("");
+  const [searchReleaseDate, setReleaseDate] = useState<any>();
 
   const dispatch = useDispatch<AppDispatch>();
 
+  const { state } = useLocation();
+  console.log("state", state);
+
   useEffect(() => {
-    if (searchName.length >= 3) {
-      dispatch(fetchMovies(searchName));
+    if (state?.searchParams) {
+      const { searchParams } = state;
+      setSearchName(searchParams.searchName);
+      // setReleaseDate(searchParams.searchReleaseDate);
     }
-  }, [searchName, dispatch]);
+  }, [state]);
+
+  useEffect(() => {
+    var requestParams!: requestParamsInterface;
+    // Request for if only name typed
+    if (!searchReleaseDate) {
+      if (searchName.length >= 3) {
+        requestParams = {
+          nameQuery: searchName,
+        };
+      }
+    } else {
+      // Request for both name and release date
+      if (searchName.length >= 3) {
+        const dateValue = searchReleaseDate["$y"];
+        requestParams = {
+          nameQuery: searchName,
+          releaseDateQuery: dateValue,
+        };
+      }
+    }
+    dispatch(fetchMovies(requestParams));
+  }, [searchReleaseDate, dispatch, searchName]);
 
   return (
     <div>
@@ -29,7 +58,10 @@ const LandingPage: React.FC = () => {
         searchReleaseDate={searchReleaseDate}
         setReleaseDate={setReleaseDate}
       />
-      <MovieTable />
+      <MovieTable
+        searchName={searchName}
+        searchReleaseDate={searchReleaseDate}
+      />
     </div>
   );
 };

@@ -1,20 +1,19 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchMovies } from "../../features/movieSlice";
-import { AppDispatch, RootState } from "../../store/store";
+import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import { PAGE_SIZE } from "../../constants/constant";
 
-const MovieTable: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-
+const MovieTable = ({
+  searchName,
+  searchReleaseDate,
+}: {
+  searchName: string;
+  searchReleaseDate: any;
+}) => {
   const movies = useSelector((state: RootState) => state.movies.movies);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    dispatch(fetchMovies("Pokemon"));
-  }, [dispatch]);
 
   const movieColumns: GridColDef[] = [
     { field: "Title", headerName: "Movie Name", width: 450 },
@@ -24,7 +23,9 @@ const MovieTable: React.FC = () => {
   ];
 
   const handleMovieClick = (params: any) => {
-    navigate(`/movie/${params.row.imdbID}`);
+    navigate(`/movie/${params.row.imdbID}`, {
+      state: { searchName, searchReleaseDate },
+    });
   };
 
   return (

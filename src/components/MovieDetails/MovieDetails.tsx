@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { fetchMovieDetails } from "../../features/movieSlice";
+import { useLocation, useParams } from "react-router-dom";
+import { fetchMovieDetails } from "../../slice/movieSlice";
 import { AppDispatch, RootState } from "../../store/store";
 import MovieDetailHeader from "./MovieDetailHeader";
 import MovieDetailImage from "./MovieDetailImage";
@@ -17,6 +17,8 @@ const MovieDetails: React.FC = () => {
     (state: RootState) => state.movies.selectedMovie
   );
 
+  const { state } = useLocation();
+
   useEffect(() => {
     if (imdbID) {
       dispatch(fetchMovieDetails(imdbID));
@@ -27,7 +29,10 @@ const MovieDetails: React.FC = () => {
     <div>
       {selectedMovieDetail ? (
         <div className="movie-detail-container">
-          <MovieDetailHeader title={selectedMovieDetail.Title} />
+          <MovieDetailHeader
+            title={selectedMovieDetail.Title}
+            searchParams={state}
+          />
           <div className="movie-detail">
             <MovieDetailImage
               title={selectedMovieDetail.Title}

@@ -1,21 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { BASE_URL, dummyData } from "../constants/constant";
-
-interface Movie {
-  imdbID: string;
-  Title: string;
-  Year: string;
-  Type: string;
-  Poster?: string;
-  [key: string]: any;
-}
-
-interface MoviesState {
-  movies: Movie[];
-  status: "idle" | "loading" | "failed";
-  selectedMovie: Movie | null;
-}
+import { BASE_URL } from "../constants/constant";
+import { MoviesState, requestParamsInterface } from "../interfaces/interfaces";
 
 const initialState: MoviesState = {
   movies: [],
@@ -24,13 +10,14 @@ const initialState: MoviesState = {
 };
 
 // Create Redux async thunk actions to http requests
-
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
-  async (query: string) => {
-    const response = await axios.get(
-      `${BASE_URL}?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${query}`
-    );
+  async (requestParams: requestParamsInterface) => {
+    let generatedUrl = `${BASE_URL}?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${requestParams.nameQuery}`;
+    if (requestParams.nameQuery && requestParams.releaseDateQuery) {
+      generatedUrl = `${generatedUrl}&y=${requestParams.releaseDateQuery}`;
+    }
+    const response = await axios.get(generatedUrl);
     return response.data.Search || [];
   }
 );

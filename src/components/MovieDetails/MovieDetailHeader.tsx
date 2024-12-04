@@ -3,11 +3,17 @@ import "./movie-detail.scss";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 
-const MovieDetailHeader = ({ title }: { title: string }) => {
+const MovieDetailHeader = ({
+  title,
+  searchParams,
+}: {
+  title: string;
+  searchParams: object;
+}) => {
   const navigate = useNavigate();
 
   const backToPreviousPage = () => {
-    navigate(-1)
+    navigate("/", { state: { searchParams } });
   };
 
   return (
