@@ -8,6 +8,12 @@
 
         .movie-detail-info-container {
             flex: 4;
+            margin-left: 10px;
+
+            >p {
+                font-family: monospace;
+                font-size: 20px;
+            }
         }
 
         .movie-image-container {
@@ -23,7 +29,7 @@
     }
 
     .title {
-        background-color: #3ab424;
+        background-color: #0E1927;
         border-radius: 70px;
         padding: 10px 15px;
         border: none;
@@ -34,6 +40,8 @@
         justify-content: center;
         position: relative;
         margin-top: 10px;
+        color: white;
+        font-family: monospace;
 
         .backIcon {
             width: 70px;

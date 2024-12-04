@@ -4,6 +4,7 @@ import { TextField } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Dayjs } from "dayjs";
 
 const MovieFilter = ({
   searchName,
@@ -13,12 +14,16 @@ const MovieFilter = ({
 }: {
   searchName: string;
   setSearchName: Function;
-  searchReleaseDate: any;
+  searchReleaseDate: Dayjs;
   setReleaseDate: Function;
 }) => {
   const movieNameValidation = !!searchName.length;
+
   return (
     <div className="movie-filter-container">
+      <div className="movie-filter-title-container">
+        <p>Search Movies</p>
+      </div>
       <div className="name-filter-container">
         <TextField
           id="outlined-helperText"
@@ -29,6 +34,25 @@ const MovieFilter = ({
           onChange={(e) => setSearchName(e.target.value)}
           error={!movieNameValidation}
           helperText={!movieNameValidation ? "Movie name must be entered" : ""}
+          variant="outlined"
+          sx={{
+            // Root class for the input field
+            "& .MuiOutlinedInput-root": {
+              color: "#0E1927",
+              fontFamily: "Arial",
+              fontWeight: "bold",
+              // Class for the border around the input field
+              "& .MuiOutlinedInput-notchedOutline": {
+                borderColor: "#0E1927",
+                borderWidth: "2px",
+              },
+            },
+            // Class for the label of the input field
+            "& .MuiInputLabel-outlined": {
+              color: "#0E1927",
+              fontWeight: "bold",
+            },
+          }}
         />
       </div>
       <div className="release-date-filter-container">
@@ -42,8 +66,45 @@ const MovieFilter = ({
             }}
             slotProps={{
               textField: {
-                fullWidth: true,
                 margin: "normal",
+                color: "success",
+              },
+            }}
+            sx={{
+              width: "320px", // Root class for the input field
+              "& .MuiInputBase-root": {
+                color: "#0E1927",
+                fontFamily: "Arial",
+                fontWeight: "bold",
+                // Class for the border around the input field
+                "& .MuiInputBase-notchedOutline": {
+                  borderColor: "#0E1927",
+                  borderWidth: "2px",
+                },
+              },
+              "& .MuiFormLabel-root": {
+                color: "#0E1927",
+                fontFamily: "Arial",
+                fontWeight: "bold",
+                // Class for the border around the input field
+                "& .MuiInputBase-input": {
+                  borderColor: "#0E1927",
+                  borderWidth: "2px",
+                },
+              },
+              // Class for the label of the input field
+              "& .MuiOutlinedInput-notchedOutline": {
+                color: "#0E1927",
+                fontWeight: "bold",
+              },
+              "& .MuiInputLabel-root": {
+                color: "#0E1927",
+                borderColor: "#0E1927",
+              }, //styles the label
+              "& .MuiOutlinedInput-root": {
+                "&:hover > fieldset": { borderColor: "#0E1927" },
+                height: "48px",
+                borderRadius: "6px",
               },
             }}
           />

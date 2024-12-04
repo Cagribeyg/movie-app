@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { BASE_URL } from "../constants/constant";
 import { MoviesState, RequestParamsInterface } from "../interfaces/interfaces";
 
@@ -13,15 +13,20 @@ const initialState: MoviesState = {
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
   async (requestParams: RequestParamsInterface) => {
-    let generatedUrl = `${BASE_URL}?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${requestParams.nameQuery}`;
+    let requestUrl = `${BASE_URL}?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${requestParams.nameQuery}`;
     if (requestParams.nameQuery && requestParams.releaseDateQuery) {
-      generatedUrl = `${generatedUrl}&y=${requestParams.releaseDateQuery}`;
+      requestUrl = `${requestUrl}&y=${requestParams.releaseDateQuery}`;
     }
-    let response: any = await axios.get(generatedUrl);
-    // Filtering for movie type episode, series, movie; excluding game
-    let filteredResponse = response?.data?.Search.filter((movie: any) =>
-      ["movie", "series", "episode"].includes(movie["Type"])
-    );
+
+    let response: AxiosResponse = await axios.get(requestUrl);
+    let filteredResponse;
+
+    if (!response?.data.Error) {
+      // Filtering for movie type episode, series, movie; excluding game
+      filteredResponse = response?.data?.Search.filter((movie: any) =>
+        ["movie", "series", "episode"].includes(movie["Type"])
+      );
+    }
 
     return filteredResponse || [];
   }

@@ -1,10 +1,12 @@
 .landing-page-header {
-    height: 150px;
+    height: 130px;
     display: flex;
     justify-content: center;
+    background-color: #0E1927;
 
     p {
         font-size: 30px;
         font-weight: 500;
+        color: whitesmoke;
     }
 }
