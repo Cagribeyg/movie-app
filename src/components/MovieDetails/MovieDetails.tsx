@@ -17,6 +17,7 @@ const MovieDetails: React.FC = () => {
     (state: RootState) => state.movies.selectedMovie
   );
 
+  // state used for navigation
   const { state } = useLocation();
 
   useEffect(() => {

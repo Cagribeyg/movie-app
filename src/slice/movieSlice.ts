@@ -17,8 +17,13 @@ export const fetchMovies = createAsyncThunk(
     if (requestParams.nameQuery && requestParams.releaseDateQuery) {
       generatedUrl = `${generatedUrl}&y=${requestParams.releaseDateQuery}`;
     }
-    const response = await axios.get(generatedUrl);
-    return response.data.Search || [];
+    let response: any = await axios.get(generatedUrl);
+    // Filtering for movie type episode, series, movie; excluding game
+    let filteredResponse = response.data.Search.filter((movie: any) =>
+      ["movie", "series", "episode"].includes(movie["Type"])
+    );
+
+    return filteredResponse || [];
   }
 );
 

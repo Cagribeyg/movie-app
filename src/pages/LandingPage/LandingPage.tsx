@@ -7,21 +7,25 @@ import { AppDispatch } from "../../store/store";
 import { fetchMovies } from "../../slice/movieSlice";
 import { useLocation } from "react-router-dom";
 import { requestParamsInterface } from "../../interfaces/interfaces";
+import dayjs from "dayjs";
 
 const LandingPage: React.FC = () => {
   const [searchName, setSearchName] = useState<string>("Pokemon");
-  const [searchReleaseDate, setReleaseDate] = useState<any>();
+  const [searchReleaseDate, setReleaseDate] = useState<any>(dayjs(Date.now()));
 
   const dispatch = useDispatch<AppDispatch>();
 
   const { state } = useLocation();
-  console.log("state", state);
 
   useEffect(() => {
+    // This useEffect used for after navigating back button, setting the state of selected name and release date
     if (state?.searchParams) {
       const { searchParams } = state;
       setSearchName(searchParams.searchName);
-      // setReleaseDate(searchParams.searchReleaseDate);
+      if (searchParams?.searchReleaseDate) {
+        const selectedYear = searchParams?.searchReleaseDate["$y"];
+        setReleaseDate(dayjs(new Date(selectedYear, 0)));
+      }
     }
   }, [state]);
 
