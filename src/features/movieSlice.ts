@@ -24,12 +24,14 @@ const initialState: MoviesState = {
 };
 
 // Create Redux async thunk actions to http requests
+
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
   async (query: string) => {
-    // TODO
-    // const response = await axios.get(`https://www.omdbapi.com/?apikey=721b9206&s=Pokemon`);
-    return dummyData;
+    const response = await axios.get(
+      `${BASE_URL}?apikey=${process.env.REACT_APP_OMDB_API_KEY}&s=${query}`
+    );
+    return response.data.Search || [];
   }
 );
 

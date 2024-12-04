@@ -1,0 +1,21 @@
+.movie-filter-container {
+    background-color: aqua;
+    width: 50%;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .name-filter-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .release-date-filter-container {
+        flex: 1;
+        display: flex;
+        justify-content: start;
+    }
+
+}

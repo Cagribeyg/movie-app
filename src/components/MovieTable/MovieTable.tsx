@@ -17,13 +17,13 @@ const MovieTable: React.FC = () => {
   }, [dispatch]);
 
   const movieColumns: GridColDef[] = [
-    { field: "Title", headerName: "Movie Name", width: 500 },
-    { field: "Year", headerName: "Release Date", width: 500 },
-    { field: "imdbID", headerName: "IMDB ID", width: 500 },
-    { field: "Type", headerName: "Type", width: 500 },
+    { field: "Title", headerName: "Movie Name", width: 450 },
+    { field: "Year", headerName: "Release Date", width: 450 },
+    { field: "imdbID", headerName: "IMDB ID", width: 450 },
+    { field: "Type", headerName: "Type", width: 450 },
   ];
 
-  const handleRowClick = (params: any) => {
+  const handleMovieClick = (params: any) => {
     navigate(`/movie/${params.row.imdbID}`);
   };
 
@@ -38,7 +38,7 @@ const MovieTable: React.FC = () => {
             paginationModel: { pageSize: PAGE_SIZE, page: 0 },
           },
         }}
-        onRowClick={handleRowClick}
+        onRowClick={handleMovieClick}
       />
     </div>
   );
