@@ -35,7 +35,7 @@ const MovieFilter = ({
           error={movieNameValidation}
           helperText={
             !movieNameValidation
-              ? "Movie name is must"
+              ? "Movie name is must(3 char at least)"
               : "Type at least 3 character"
           }
           variant="outlined"

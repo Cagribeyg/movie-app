@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
-import { fetchMovieDetails } from "../../slice/movieSlice";
-import { AppDispatch, RootState } from "../../store/store";
 import MovieDetailHeader from "./MovieDetailHeader";
 import MovieDetailImage from "./MovieDetailImage";
 import MovieDetailInfo from "./MovieDetailInfo";
 import { CircularProgress } from "@mui/material";
+import { AppDispatch, RootState } from "../../redux/store";
+import { fetchMovieDetails } from "../../redux/actions/movieActions";
 
 const MovieDetails: React.FC = () => {
   // Get imdbID for fetching the movie details

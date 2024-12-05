@@ -1,7 +1,7 @@
 import { GridColDef } from "@mui/x-data-grid";
 
 export const BASE_URL = "https://www.omdbapi.com/";
-export const PAGE_SIZE = 10;
+export const MINIMUM_NAME_KEYWORD_LENGTH = 2;
 
 export const movieColumns: GridColDef[] = [
   {

@@ -1,6 +1,7 @@
 export interface RequestParamsInterface {
   releaseDateQuery?: number | null;
   nameQuery: string;
+  page?: number | null;
 }
 
 interface Movie {
@@ -16,4 +17,5 @@ export interface MoviesState {
   movies: Movie[];
   status: "idle" | "loading" | "failed";
   selectedMovie: Movie | null;
+  rowCount: number;
 }

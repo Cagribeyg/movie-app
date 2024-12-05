@@ -2,19 +2,17 @@ import React, { useEffect, useState } from "react";
 import MovieTable from "../../components/MovieTable/MovieTable";
 import "../page.scss";
 import MovieFilter from "../../components/MovieFilter/MovieFilter";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
-import { fetchMovies } from "../../slice/movieSlice";
+import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { RequestParamsInterface } from "../../interfaces/interfaces";
 import dayjs from "dayjs";
-import { CircularProgress } from "@mui/material";
+import { AppDispatch } from "../../redux/store";
+import { fetchMovies } from "../../redux/actions/movieActions";
+import { MINIMUM_NAME_KEYWORD_LENGTH } from "../../constants/constant";
 
 const LandingPage: React.FC = () => {
   const [searchName, setSearchName] = useState<string>("Pokemon");
   const [searchReleaseDate, setReleaseDate] = useState<any>(dayjs(Date.now()));
-  const status = useSelector((state: RootState) => state.movies.status);
-  const isLoading = status === "loading";
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -28,13 +26,15 @@ const LandingPage: React.FC = () => {
       if (searchParams?.searchReleaseDate) {
         const selectedYear = searchParams?.searchReleaseDate["$y"];
         setReleaseDate(dayjs(new Date(selectedYear, 0)));
+      } else {
+        setReleaseDate(null);
       }
     }
   }, [state]);
 
   // This useEffect used for fetching the movie data
   useEffect(() => {
-    if (searchName.length > 2) {
+    if (searchName.length > MINIMUM_NAME_KEYWORD_LENGTH) {
       let requestParams!: RequestParamsInterface;
       // Request for if only name typed
       if (!searchReleaseDate) {
@@ -64,16 +64,10 @@ const LandingPage: React.FC = () => {
         searchReleaseDate={searchReleaseDate}
         setReleaseDate={setReleaseDate}
       />
-      {isLoading ? (
-        <div className="loading-container">
-          <CircularProgress style={{ position: "absolute" }} color="success" />
-        </div>
-      ) : (
-        <MovieTable
-          searchName={searchName}
-          searchReleaseDate={searchReleaseDate}
-        />
-      )}
+      <MovieTable
+        searchName={searchName}
+        searchReleaseDate={searchReleaseDate}
+      />
     </div>
   );
 };
