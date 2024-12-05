@@ -24,9 +24,10 @@ const moviesSlice = createSlice({
         const filteredSearchMovieList = action.payload?.Search.filter(
           (movie: any) => ["movie", "series", "episode"].includes(movie["Type"])
         );
+
         state.movies = filteredSearchMovieList;
         const responseTotalCount = action.payload?.totalResults;
-        state.rowCount = responseTotalCount - filteredSearchMovieList?.length;
+        state.rowCount = responseTotalCount;
       })
       .addCase(fetchMovieDetails.fulfilled, (state, action) => {
         state.selectedMovie = action.payload;

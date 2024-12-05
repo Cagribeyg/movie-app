@@ -19,7 +19,7 @@ const MovieTable = ({
   const rowCount = useSelector((state: RootState) => state.movies.rowCount);
   const navigate = useNavigate();
   const [paginationModel, setPaginationModel] = useState({
-    page: 0,
+    page: 1,
     pageSize: 10,
   });
 
@@ -41,8 +41,17 @@ const MovieTable = ({
       dispatch(fetchMovies(requestParams));
     }
   }, [paginationModel.page, searchReleaseDate, searchName, dispatch]);
-  const handlePagination = (e: any) => {
-    setPaginationModel(e);
+  const handlePagination = (e: any, t: any) => {
+    if (paginationModel.page + 1 === 1) {
+      setPaginationModel((prev) => {
+        return {
+          ...prev,
+          page: e.page + 1,
+        };
+      });
+    } else {
+      setPaginationModel(e);
+    }
   };
   return (
     <div className="movie-table-container">
@@ -64,8 +73,16 @@ const MovieTable = ({
           getRowId={(row: { imdbID: any }) => row.imdbID}
           rowCount={rowCount}
           paginationMode="server"
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 10,
+                page: 1, // default value will be used if not passed */
+              },
+            },
+          }}
           paginationModel={paginationModel}
-          onPaginationModelChange={(e) => handlePagination(e)}
+          onPaginationModelChange={(e, t) => handlePagination(e, t)}
           onRowClick={handleMovieClick}
           sx={{
             boxShadow: 2,
