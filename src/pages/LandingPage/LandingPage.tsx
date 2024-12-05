@@ -34,23 +34,23 @@ const LandingPage: React.FC = () => {
 
   // This useEffect used for fetching the movie data
   useEffect(() => {
-    var requestParams!: RequestParamsInterface;
-    // Request for if only name typed
-    if (!searchReleaseDate && searchName.length) {
-      requestParams = {
-        nameQuery: searchName,
-      };
-    } else {
-      // Request for both name and release date
-      if (searchName.length) {
+    if (searchName.length > 2) {
+      let requestParams!: RequestParamsInterface;
+      // Request for if only name typed
+      if (!searchReleaseDate) {
+        requestParams = {
+          nameQuery: searchName,
+        };
+      } else {
+        // Request for both name and release date
         const dateValue = searchReleaseDate["$y"];
         requestParams = {
           nameQuery: searchName,
           releaseDateQuery: dateValue,
         };
       }
+      dispatch(fetchMovies(requestParams));
     }
-    dispatch(fetchMovies(requestParams));
   }, [searchReleaseDate, dispatch, searchName]);
 
   return (

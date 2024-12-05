@@ -5,6 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import { movieColumns, PAGE_SIZE } from "../../constants/constant";
 import { Box } from "@mui/material";
+import "./MovieTable.scss";
 
 const MovieTable = ({
   searchName,
@@ -23,11 +24,11 @@ const MovieTable = ({
   };
 
   return (
-    <div style={{ height: 600, width: "100%" }}>
+    <div className="movie-table-container">
       <Box
         sx={{
           height: 600,
-          width: "100%",
+          width: "1500px",
           "& .grid-header-style": {
             backgroundColor: "#121212",
             color: "white",

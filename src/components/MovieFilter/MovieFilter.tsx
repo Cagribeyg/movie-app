@@ -17,7 +17,7 @@ const MovieFilter = ({
   searchReleaseDate: Dayjs;
   setReleaseDate: Function;
 }) => {
-  const movieNameValidation = !!searchName.length;
+  const movieNameValidation = searchName.length < 3;
 
   return (
     <div className="movie-filter-container">
@@ -32,8 +32,12 @@ const MovieFilter = ({
           style={{ marginLeft: "20px" }}
           value={searchName}
           onChange={(e) => setSearchName(e.target.value)}
-          error={!movieNameValidation}
-          helperText={!movieNameValidation ? "Movie name must be entered" : ""}
+          error={movieNameValidation}
+          helperText={
+            !movieNameValidation
+              ? "Movie name is must"
+              : "Type at least 3 character"
+          }
           variant="outlined"
           sx={{
             // Root class for the input field
@@ -59,7 +63,7 @@ const MovieFilter = ({
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             views={["year"]}
-            label="Year only"
+            label="Search By Year"
             value={searchReleaseDate}
             onChange={(newValue) => {
               setReleaseDate(newValue);
@@ -67,7 +71,8 @@ const MovieFilter = ({
             slotProps={{
               textField: {
                 margin: "normal",
-                color: "success",
+                color: "primary",
+                helperText: "Year Only",
               },
             }}
             sx={{

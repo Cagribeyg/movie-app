@@ -14,20 +14,20 @@
         height: 60px;
         display: flex;
         align-items: center;
-        margin-left: $font-medium;
+        justify-content: end;
     }
 
     .name-filter-container {
         flex: 1;
         display: flex;
-        justify-content: start;
+        justify-content: center;
         height: 60px;
         align-items: center;
         margin-top: 8px;
     }
 
     .release-date-filter-container {
-        flex: 2;
+        flex: 1;
         display: flex;
         justify-content: start;
         height: 60px;
