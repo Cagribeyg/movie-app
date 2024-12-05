@@ -25,15 +25,20 @@ Make sure you have **Node.js** and **npm** installed on your system.
 
 2. Navigate to the project directory:
 
+   ```
    cd movie-app
+   ```
 
 3. Install the dependencies:
 
+   ```
    npm install
+   ```
 
 4. Start the application:
-
+   ```
    npm run start
+   ```
 
 ## Available Scripts
 
