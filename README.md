@@ -2,6 +2,39 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Steps to Run the Project
+
+# Movie App
+
+## Getting Started
+
+Follow the steps below to set up and run the project.
+
+### Prerequisites
+
+Make sure you have **Node.js** and **npm** installed on your system.
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Cagribeyg/movie-app.git
+
+   ```
+
+2. Navigate to the project directory:
+
+   cd movie-app
+
+3. Install the dependencies:
+
+   npm install
+
+4. Start the application:
+
+   npm run start
+
 ## Available Scripts
 
 In the project directory, you can run:
