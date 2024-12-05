@@ -1,12 +1,15 @@
+@import "../utilities/colors.scss";
+@import "../utilities/fonts.scss";
+
 .landing-page-header {
     height: 130px;
     display: flex;
     justify-content: center;
-    background-color: #0E1927;
+    background-color: $main-theme;
 
     p {
-        font-size: 30px;
+        font-size: $font-large;
         font-weight: 500;
-        color: whitesmoke;
+        color: $whitesmoke;
     }
 }
